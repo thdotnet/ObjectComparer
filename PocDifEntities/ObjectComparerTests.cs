@@ -11,7 +11,7 @@ namespace PocDifEntities
         [TestMethod]
         public void GivenTwoObjects_WhenComparing_ShouldReturnDiferences()
         {
-            var usuario = new User
+            var user1 = new User
             {
                 Id = 1,
                 Birthday = new DateTime(1987, 9, 10),
@@ -30,7 +30,7 @@ namespace PocDifEntities
                 }
             };
 
-            var usuario2 = new User
+            var user2 = new User
             {
                 Id = 1,
                 Birthday = new DateTime(1987, 9, 10),
@@ -49,7 +49,7 @@ namespace PocDifEntities
                 }
             };
 
-            var result = ObjectComparer.Compare<User>(usuario, usuario2);
+            var result = ObjectComparer.Compare<User>(user1, user2);
 
             int quantityExpected = 4;
 
