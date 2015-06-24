@@ -7,3 +7,8 @@ C:\Users\br.thiago.custodio\Documents\visual studio 2013\Projects\PocDifEntities
 C:\Users\br.thiago.custodio\Documents\visual studio 2013\Projects\PocDifEntities.cs\PocDifEntities\obj\Debug\PocDifEntities.csprojResolveAssemblyReference.cache
 C:\Users\br.thiago.custodio\Documents\visual studio 2013\Projects\PocDifEntities.cs\PocDifEntities\obj\Debug\PocDifEntities.dll
 C:\Users\br.thiago.custodio\Documents\visual studio 2013\Projects\PocDifEntities.cs\PocDifEntities\obj\Debug\PocDifEntities.pdb
+C:\Users\br.thiago.custodio\Documents\Visual Studio 2013\Projects\PocDifEntities\PocDifEntities\bin\Debug\PocDifEntities.dll
+C:\Users\br.thiago.custodio\Documents\Visual Studio 2013\Projects\PocDifEntities\PocDifEntities\bin\Debug\PocDifEntities.pdb
+C:\Users\br.thiago.custodio\Documents\Visual Studio 2013\Projects\PocDifEntities\PocDifEntities\obj\Debug\PocDifEntities.csprojResolveAssemblyReference.cache
+C:\Users\br.thiago.custodio\Documents\Visual Studio 2013\Projects\PocDifEntities\PocDifEntities\obj\Debug\PocDifEntities.dll
+C:\Users\br.thiago.custodio\Documents\Visual Studio 2013\Projects\PocDifEntities\PocDifEntities\obj\Debug\PocDifEntities.pdb

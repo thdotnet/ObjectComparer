@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PocDifEntities.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PocDifEntities.cs
+namespace PocDifEntities.LIB
 {
     public class ObjectComparer
     {
@@ -12,14 +14,36 @@ namespace PocDifEntities.cs
         {
             var result = new Dictionary<string, ObjectComparerItem>();
 
+            result = GetDifferences<T>(old, actual);
+
+            return result;
+        }
+
+        private static Dictionary<string, ObjectComparerItem> GetDifferences<T>(T old, T actual) where T : class
+        {
+            var result = new Dictionary<string, ObjectComparerItem>();
+
             var properties = old.GetType().GetProperties();
 
-            foreach(var property in properties)
+            foreach (var property in properties)
             {
                 object oldValue = GetValueFromProperty<T>(old, property);
                 object currentValue = GetValueFromProperty<T>(actual, property);
 
-                if (ValorDaPropriedadeAlterado(oldValue, currentValue) || PropriedadeAdicionada(oldValue, currentValue) || PropriedadeRemovida(oldValue, currentValue))
+                if(property.PropertyType.IsPrimitive == false && property.PropertyType.Namespace.Equals("System") == false)
+                {
+                    var obj = old.GetType().GetProperty(property.Name).GetValue(old);
+                    var obj2 = actual.GetType().GetProperty(property.Name).GetValue(actual);
+
+                    Type T2 = property.GetType();
+
+                    var x = GetDifferences(((dynamic)obj), ((dynamic)obj2));
+                    foreach (KeyValuePair<string, ObjectComparerItem> keyValue in x)
+                    {
+                        result.Add(keyValue.Key, keyValue.Value);
+                    }
+                }
+                else if (UpdatedPropertyValue(oldValue, currentValue) || PropertyAdded(oldValue, currentValue) || PropertyRemoved(oldValue, currentValue))
                 {
                     string oldV = oldValue == null ? "" : oldValue.ToString();
                     string currentV = currentValue == null ? "" : currentValue.ToString();
@@ -33,17 +57,17 @@ namespace PocDifEntities.cs
             return result;
         }
 
-        private static bool ValorDaPropriedadeAlterado(object oldValue, object currentValue)
+        private static bool UpdatedPropertyValue(object oldValue, object currentValue)
         {
             return (oldValue != null && oldValue.Equals(currentValue) == false);
         }
 
-        private static bool PropriedadeRemovida(object oldValue, object currentValue)
+        private static bool PropertyRemoved(object oldValue, object currentValue)
         {
             return (oldValue != null && currentValue == null);
         }
 
-        private static bool PropriedadeAdicionada(object oldValue, object currentValue)
+        private static bool PropertyAdded(object oldValue, object currentValue)
         {
             return (oldValue == null && currentValue != null);
         }
@@ -55,14 +79,14 @@ namespace PocDifEntities.cs
     
         public class ObjectComparerItem
         {            
-            public string ValorAnterior {get;set;}
+            public string OldValue {get;set;}
 
-            public string ValorAtual {get;set;}
+            public string CurrentValue {get;set;}
 
-            public ObjectComparerItem(string valorAnterior, string valorAtual)
+            public ObjectComparerItem(string oldValue, string currentValue)
             {
-                ValorAnterior = valorAnterior;
-                ValorAtual = valorAtual;
+                OldValue = oldValue;
+                CurrentValue = currentValue;
             }
         }
     }

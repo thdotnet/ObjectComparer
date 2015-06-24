@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PocDifEntities.Entity;
+using PocDifEntities.LIB;
 
-namespace PocDifEntities.cs
+namespace PocDifEntities
 {
     [TestClass]
     public class ObjectComparerTests
@@ -9,39 +11,45 @@ namespace PocDifEntities.cs
         [TestMethod]
         public void GivenTwoObjects_WhenComparing_ShouldReturnDiferences()
         {
-            var usuario = new Usuario
+            var usuario = new User
             {
                 Id = 1,
-                Cep = "04242-042",
-                Cidade = "São Paulo",
-                Complemento = "apto",
-                DataNascimento = new DateTime(1987, 9, 10),
+                Birthday = new DateTime(1987, 9, 10),
                 Email = "th@fakedomain.com.br",
-                Estado = "SP",
-                Logradouro = "Rua da minha casa",
-                Nome = "Thiago Custodio",
-                Numero = "123",
-                Telefone = "551198989-1234",
-                Twitter = "@thdotnet"
+                Name = "Thiago Custodio",
+                Telephone = "551198989-1234",
+                Twitter = "@thdotnet",
+                Address = new Address
+                {
+                    ZipCode = "04242-042",
+                    City = "São Paulo",
+                    Address2 = "apto",
+                    State = "SP",
+                    Street = "Rua da minha casa",
+                    AddressNumber = "123",
+                }
             };
 
-            var usuario2 = new Usuario
+            var usuario2 = new User
             {
                 Id = 1,
-                Cep = "04246-046",
-                Cidade = "São Paulo",
-                Complemento = "apto",
-                DataNascimento = new DateTime(1987, 9, 10),
+                Birthday = new DateTime(1987, 9, 10),
                 Email = "th2@fakedomain.com.br",
-                Estado = "SP",
-                Logradouro = "Rua da minha casa",
-                Nome = "Thiago Custodio",
-                Numero = "123",
-                Telefone = "551198989-1234",
-                Apelido = "thdotnet"
+                Name = "Thiago Custodio",
+                Telephone = "551198989-1234",
+                Nickname = "thdotnet",
+                Address = new Address
+                {
+                    ZipCode = "04246-046",
+                    City = "São Paulo",
+                    Address2 = "apto",
+                    State = "SP",
+                    Street = "Rua da minha casa",
+                    AddressNumber = "123"
+                }
             };
 
-            var result = ObjectComparer.Compare<Usuario>(usuario, usuario2);
+            var result = ObjectComparer.Compare<User>(usuario, usuario2);
 
             int quantityExpected = 4;
 
@@ -52,10 +60,10 @@ namespace PocDifEntities.cs
 
             Assert.AreEqual(quantityExpected, result.Count);
 
-            Assert.AreEqual(currentEmail, result["Email"].ValorAtual);
-            Assert.AreEqual(currentCep, result["Cep"].ValorAtual);
-            Assert.AreEqual(currentApelido, result["Apelido"].ValorAtual);
-            Assert.AreEqual(currentTwitter, result["Twitter"].ValorAtual);
+            Assert.AreEqual(currentEmail, result["Email"].CurrentValue);
+            Assert.AreEqual(currentCep, result["ZipCode"].CurrentValue);
+            Assert.AreEqual(currentApelido, result["Nickname"].CurrentValue);
+            Assert.AreEqual(currentTwitter, result["Twitter"].CurrentValue);
         }
     }
 }
