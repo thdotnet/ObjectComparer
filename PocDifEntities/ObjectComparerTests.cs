@@ -54,15 +54,15 @@ namespace PocDifEntities
             int quantityExpected = 4;
 
             string currentEmail = "th2@fakedomain.com.br";
-            string currentCep = "04246-046";
-            string currentApelido = "thdotnet";
+            string currentZipCode = "04246-046";
+            string currentNickName = "thdotnet";
             string currentTwitter = "";
 
             Assert.AreEqual(quantityExpected, result.Count);
 
             Assert.AreEqual(currentEmail, result["Email"].CurrentValue);
-            Assert.AreEqual(currentCep, result["ZipCode"].CurrentValue);
-            Assert.AreEqual(currentApelido, result["Nickname"].CurrentValue);
+            Assert.AreEqual(currentZipCode, result["ZipCode"].CurrentValue);
+            Assert.AreEqual(currentNickName, result["Nickname"].CurrentValue);
             Assert.AreEqual(currentTwitter, result["Twitter"].CurrentValue);
         }
     }
